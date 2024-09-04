@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const socket = require("socket.io");
 const userRoutes  = require("../server/routes/userRoutes");
+const messageRoutes= require("../server/routes/messages")
 const app = express();
 require("dotenv").config();
 
@@ -33,7 +34,7 @@ app.get("/ping", (_req, res) => {
     return res.json({ msg: "Ping Successful" });
   });
   
-  app.use("/api/auth", authRoutes);
+  app.use("/api/auth", userRoutes);
   app.use("/api/messages", messageRoutes);
 
 

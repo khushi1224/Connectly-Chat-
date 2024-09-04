@@ -1,52 +1,57 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
+import Logo from "../assets/logo.png";
 
 export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
-  useEffect(async () => {
-    const data = await JSON.parse(
-      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
-    );
-    setCurrentUserName(data.username);
-    setCurrentUserImage(data.avatarImage);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const data = JSON.parse(localStorage.getItem("Connectly User"));
+      if (data) {
+        setCurrentUserName(data.username);
+        setCurrentUserImage(data.avatarImage);
+      }
+    };
+
+    fetchUserData();
   }, []);
+
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
+
   return (
     <>
-      {currentUserImage && currentUserImage && (
+      {currentUserImage && currentUserName && (
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h3>snappy</h3>
+            <h3>Connectly</h3>
           </div>
           <div className="contacts">
-            {contacts.map((contact, index) => {
-              return (
-                <div
-                  key={contact._id}
-                  className={`contact ${
-                    index === currentSelected ? "selected" : ""
-                  }`}
-                  onClick={() => changeCurrentChat(index, contact)}
-                >
-                  <div className="avatar">
-                    <img
-                      src={`data:image/svg+xml;base64,${contact.avatarImage}`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="username">
-                    <h3>{contact.username}</h3>
-                  </div>
+            {contacts.map((contact, index) => (
+              <div
+                key={contact._id}
+                className={`contact ${
+                  index === currentSelected ? "selected" : ""
+                }`}
+                onClick={() => changeCurrentChat(index, contact)}
+              >
+                <div className="avatar">
+                  <img
+                    src={`data:image/svg+xml;base64,${contact.avatarImage}`}
+                    alt=""
+                  />
                 </div>
-              );
-            })}
+                <div className="username">
+                  <h3>{contact.username}</h3>
+                </div>
+              </div>
+            ))}
           </div>
           <div className="current-user">
             <div className="avatar">
@@ -64,6 +69,7 @@ export default function Contacts({ contacts, changeChat }) {
     </>
   );
 }
+
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
@@ -75,7 +81,7 @@ const Container = styled.div`
     gap: 1rem;
     justify-content: center;
     img {
-      height: 2rem;
+      height: 5.3rem;
     }
     h3 {
       color: white;
