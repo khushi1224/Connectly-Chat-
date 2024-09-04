@@ -1,11 +1,10 @@
 
-# Chat Application
+# CONNECTLY (Chat Application)
 
 A simple chat application with emoji picker functionality built using React. This application allows users to send messages and include emojis easily. It features a user-friendly interface for chatting in real-time.
 
 ## Features
 
-- **Emoji Picker:** Easily add emojis to your messages using the integrated emoji picker.
 - **Responsive Design:** The application is designed to be responsive and works well on both mobile and desktop devices.
 - **Message Sending:** Users can send text messages, which are displayed in the chat interface.
 
@@ -16,7 +15,7 @@ To get started with this project, follow the instructions below:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/chat-application.git
+git clone https://github.com/khushi1224/Connectly-Chat-.git
 ```
 
 ### 2. Navigate to the Project Directory
@@ -48,18 +47,6 @@ The application should now be running on `http://localhost:3000`.
 3. **Add Emojis:** Click the smiley face icon to open the emoji picker and select an emoji to add to your message.
 4. **Send a Message:** Press the send button or hit Enter to send your message.
 
-## Components
-
-- **`ChatInput` Component:** Handles message input and emoji selection.
-  - **Props:**
-    - `handleSendMsg`: A function to handle sending messages.
-- **`Picker` Component:** Imported from `emoji-picker-react` for selecting emojis.
-
-## Technologies Used
-
-- **React:** JavaScript library for building user interfaces.
-- **Styled Components:** For styling the React components.
-- **Emoji Picker React:** A library for adding emoji picker functionality.
 
 ## Development
 
@@ -87,9 +74,7 @@ To contribute to this project, follow these steps:
 
 5. **Create a Pull Request:** Go to the original repository and create a pull request from your feature branch.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
