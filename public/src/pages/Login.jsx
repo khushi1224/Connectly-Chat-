@@ -9,6 +9,10 @@ import { loginRoute } from '../utils/APIRoutes';
 function Login() {
 
   const navigate = useNavigate();
+  const [values, setValues] = useState({
+    username: "",
+    password: "",
+  });
     const toastOptions = {
         position: "bottom-right",
         autoClose: 2000,
@@ -16,21 +20,22 @@ function Login() {
         draggable: true,
         theme: "dark",
       };
-    const [values, setValues] = useState({
-        username: "",
-        password: "",
-      });
+      useEffect(()=>{
+        if(localStorage.getItem("Connectly User")){
+          navigate("/");
+        }
+      },[]);
       const handleValidation = () => {
         const { password,  username } = values;
         if (password === "") {
           toast.error(
-            "Email and Password are required.",
+            "Username and Password are required.",
             toastOptions
           );
           return false;
         } else if (username.length === "") {
           toast.error(
-            "Email and Password are required.",
+            "Username and Password are required.",
             toastOptions
           );
           return false;

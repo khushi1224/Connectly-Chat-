@@ -9,6 +9,12 @@ import { registerRoute } from '../utils/APIRoutes';
 function Register() {
 
   const navigate = useNavigate();
+  const [values, setValues] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
     const toastOptions = {
         position: "bottom-right",
         autoClose: 2000,
@@ -16,12 +22,11 @@ function Register() {
         draggable: true,
         theme: "dark",
       };
-    const [values, setValues] = useState({
-        username: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      });
+      useEffect(()=>{
+        if(localStorage.getItem("Connectly User")){
+          navigate("/");
+        }
+      },[]);
       const handleValidation = () => {
         const { password, confirmPassword, username, email } = values;
         if (password !== confirmPassword) {
