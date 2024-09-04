@@ -2,33 +2,28 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
 
-export default function Contacts({ contacts, currentuser, changeChat }) {
+export default function Contacts({ contacts, changeChat }) {
   const [currentUserName, setCurrentUserName] = useState(undefined);
   const [currentUserImage, setCurrentUserImage] = useState(undefined);
   const [currentSelected, setCurrentSelected] = useState(undefined);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await JSON.parse(localStorage.getItem("Connectly User"));
-      setCurrentUserName(data?.username); // Use optional chaining to avoid errors
-      setCurrentUserImage(data?.avatarImage);
-    };
-
-    fetchData(); // Call the async function inside useEffect
+  useEffect(async () => {
+    const data = await JSON.parse(
+      localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+    );
+    setCurrentUserName(data.username);
+    setCurrentUserImage(data.avatarImage);
   }, []);
-
   const changeCurrentChat = (index, contact) => {
     setCurrentSelected(index);
     changeChat(contact);
   };
-
   return (
     <>
-      {currentUserImage && currentUserName && (
+      {currentUserImage && currentUserImage && (
         <Container>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h3>Connectly</h3>
+            <h3>snappy</h3>
           </div>
           <div className="contacts">
             {contacts.map((contact, index) => {
@@ -69,7 +64,6 @@ export default function Contacts({ contacts, currentuser, changeChat }) {
     </>
   );
 }
-
 const Container = styled.div`
   display: grid;
   grid-template-rows: 10% 75% 15%;
