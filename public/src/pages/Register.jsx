@@ -1,15 +1,17 @@
 import React ,{useState , useEffect}from 'react'
-import{axios} from"axios";
-import { Link } from 'react-router-dom';
+import axios from "axios"
+import { useNavigate,Link } from 'react-router-dom';
 import styled from "styled-components";
 import Logo from "../assets/logo.svg";
 import{ToastContainer , toast} from"react-toastify";
 import "react-toastify/ReactToastify.css"
 import { registerRoute } from '../utils/APIRoutes';
 function Register() {
+
+  const navigate = useNavigate();
     const toastOptions = {
         position: "bottom-right",
-        autoClose: 4000,
+        autoClose: 2000,
         pauseOnHover: true,
         draggable: true,
         theme: "dark",
@@ -20,23 +22,9 @@ function Register() {
         password: "",
         confirmPassword: "",
       });
-    const handleSubmit = async (event)=>{
-        event.preventDefault();
-       if( handleValidation()){
-        const { email, username, password } = values;
-        const { data } = await axios.post(registerRoute,{
-          username,
-          email,
-          password,
-        });
-       }   
-    };
-    const handleChange = (event)=>{
-        setValues({ ...values, [event.target.name]: event.target.value });
-    }
-    const handleValidation = () => {
+      const handleValidation = () => {
         const { password, confirmPassword, username, email } = values;
-        if (password !==confirmPassword) {
+        if (password !== confirmPassword) {
           toast.error(
             "Password and confirm password should be same.",
             toastOptions
@@ -61,6 +49,32 @@ function Register() {
     
         return true;
       };
+      const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (handleValidation()) {
+          console.log("Validation",registerRoute);
+          const { email, username, password } = values;
+          const { data } = await axios.post(registerRoute, {
+            username,
+            email,
+            password,
+          });
+          if(data.status === false){
+            toast.error(data.msg, toastOptions);
+          }
+          if (data.status === true) {
+            localStorage.setItem(
+              "Connectly User",
+              JSON.stringify(data.user)
+            );
+            navigate("/");
+          }
+        }
+      };
+    const handleChange = (event)=>{
+        setValues({ ...values, [event.target.name]: event.target.value });
+    }
+
   return (
     < >
     <FormContainer>
