@@ -45,7 +45,7 @@ export default function Contacts({ contacts, changeChat }) {
                   <img
                     src={`data:image/svg+xml;base64,${contact.avatarImage}`}
                     alt=""
-                  />
+                  />                                                                                                  
                 </div>
                 <div className="username">
                   <h3>{contact.username}</h3>
