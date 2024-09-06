@@ -22,7 +22,6 @@ app.get("/ping", (_req, res) => {
     return res.json({ msg: "Ping Successful" });
   });
   
-  app.use("/api/auth", userRoutes);
   app.use("/api/messages", messageRoutes);
 
 
